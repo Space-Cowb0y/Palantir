@@ -1,0 +1,15 @@
+tenants(id,name, created_at)
+
+users()
+roles()
+user_roles()
+
+agents()
+plugins()
+
+events()
+
+policies()
+policy_assingments()
+
+audit_logs()
