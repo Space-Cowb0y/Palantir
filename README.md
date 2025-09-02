@@ -19,7 +19,7 @@ docker-compose up -d api-agent api-admin web
 
 # To-Do List
 
-- [ ] Definir requisitos do projeto
+- [X] Definir requisitos do projeto
 - [X] Criar estrutura de pastas
 - [ ] Implementar funcionalidades principais
 - [ ] Testar aplicação
