@@ -1,4 +1,3 @@
-*write a readme about a security tool in develepment that do many things in C/C++/C#, GO and Python*
 # Palantir 🔮
 
 **Palantir** é uma suíte modular de segurança open source.
