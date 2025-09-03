@@ -43,7 +43,6 @@ docker-compose up -d api-agent api-admin web
   - [ ] Assinaturas e verificação
   - [ ] Encrypted backup deduplicado
   - [ ] Key management
-  - [ ] Key management
   - [ ] OAuth2/OIDC client e resource server
   - [ ] SCA/Dependency auditor
 - [] C/C++
@@ -61,7 +60,6 @@ docker-compose up -d api-agent api-admin web
   - [ ] WASM sandbox runner
   - [ ] CLI de criptografia com zeroize
 - [] GO
-  - [ ] Agent de endpoint
   - [ ] Agent de endpoint
   - [ ] Scanner de configuração cloud
   - [ ] Rate-limiter distribuído

@@ -1,0 +1,5 @@
+cmake_minimum_required(VERSION 3.22)
+project(security_core C CXX)
+set(CMAKE_CXX_STANDARD 17)
+add_executable(core src/main.cpp src/plugin_loader.cpp src/event_bus_inmem.cpp)
+target_include_directories(core PRIVATE ${CMAKE_SOURCE_DIR}/sdk core/include)

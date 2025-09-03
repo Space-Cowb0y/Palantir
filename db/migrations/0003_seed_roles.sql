@@ -1,1 +1,2 @@
 -- seed roles
+-- opcional: se for modelar roles/permissions em SQL

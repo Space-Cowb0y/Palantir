@@ -1,7 +1,7 @@
 param([Parameter(Mandatory=$true)][string]$Repo)
 
 function Mid($title) {
-  gh api "repos/$Repo/milestones" --jq ".[] | select(.title==`"$title`") | .number"
+  gh api "repos/$Repo/milestones" --jq --milestone ".[] | select(.title==`"$title`") | .number"
 }
 
 # Milestones
@@ -15,7 +15,7 @@ $labels = @('backend','frontend','core','plugin','infra','good first issue','MVP
 foreach ($l in $labels) { gh label create $l -R $Repo 2>$null }
 
 function New-Issue($title,$body,$labels,$ms) {
-  gh issue create -R $Repo --title "$title" --body "$body" --label "$labels" --milestone $ms | Out-Null
+  gh issue create -R $Repo -t "$title" -b "$body" -l "$labels" -m $ms | Out-Null
   Write-Host "✔ $title"
 }
 
@@ -25,27 +25,27 @@ New-Issue "Agent API: persistir POST /v1/events no Postgres" @"
 - [ ] Inserção em events
 - [ ] 202 Accepted
 - [ ] Teste de integração
-"@ "backend,MVP" $M1
+"@ "backend" $M1
 
 New-Issue "Admin API: listar eventos e filtro básico (GET /v1/admin/events)" @"
 * Critérios:
 - [ ] Paginação
 - [ ] Filtros: type, source, severity, ts range
 - [ ] JSON {items, total}
-"@ "backend,frontend,MVP" $M1
+"@ "backend" $M1
 
 New-Issue "Admin API: stub de SSE (GET /v1/admin/events/stream)" @"
 * Critérios:
 - [ ] text/event-stream
 - [ ] ping periódico
-"@ "backend,MVP" $M1
+"@ "backend" $M1
 
 New-Issue "Web: tabela de eventos consumindo Admin API" @"
 * Critérios:
 - [ ] /events com paginação
 - [ ] Filtros
 - [ ] Loading/erro
-"@ "frontend,MVP" $M1
+"@ "frontend" $M1
 
 New-Issue "Plugin: Port Scanner (C/C++)" "* Critérios: TCP connect, threads, eventos" "plugin,core" $M2
 New-Issue "Plugin: File Integrity (C + BLAKE3)" "* Critérios: baseline, detecção, eventos" "plugin,core" $M2

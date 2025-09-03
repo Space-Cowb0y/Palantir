@@ -1,0 +1,5 @@
+cmake_minimum_required(VERSION 3.22)
+project(port_scanner C)
+add_library(port_scanner SHARED src/port_scanner.c)
+target_include_directories(port_scanner PRIVATE ${CMAKE_SOURCE_DIR}/sdk)
+set_target_properties(port_scanner PROPERTIES OUTPUT_NAME "port_scanner")

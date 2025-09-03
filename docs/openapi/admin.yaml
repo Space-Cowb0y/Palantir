@@ -1,1 +1,12 @@
 openapi: 3.0.3
+info:
+  title: Palantir Admin API
+  version: 1.0.0
+
+paths:
+  /v1/admin/users:
+    get:
+      responses: { "200": { description: OK } }
+  /v1/admin/events/stream:
+    get:
+      responses: { "200": { description: SSE stream } }
