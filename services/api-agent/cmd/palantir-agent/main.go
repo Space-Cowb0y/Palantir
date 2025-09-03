@@ -5,8 +5,8 @@ import (
 	"net/http"
 	"os"
 
-	"palantir/services/api-agent/internal/httpserver"
-	"palantir/services/api-agent/internal/store"
+	"Palantir/services/api-agent/internal/http"
+	"Palantir/services/api-agent/internal/store"
 )
 
 func main() {

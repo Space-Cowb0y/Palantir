@@ -7,7 +7,7 @@ import (
 	"strconv"
 	"time"
 
-	"palantir/services/api-admin/internal/store"
+	"Palantir/services/api-admin/internal/store"
 )
 
 type Server struct{ Store *store.Store }

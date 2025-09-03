@@ -4,6 +4,7 @@ import (
 	"context"
 	"time"
 
+	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgxpool"
 )
 
@@ -27,11 +28,11 @@ type EventRow struct {
 }
 
 func (s *Store) InsertEvents(ctx context.Context, rows []EventRow) error {
-	batch := &pgxpool.Batch{}
+	batch := &pgx.Batch{}
 	for _, r := range rows {
 		batch.Queue(
 			`INSERT INTO events(tenant_id, agent_id, type, source, severity, ts, payload)
-             VALUES ($1,$2,$3,$4,$5,$6,$7)`,
+			 VALUES ($1,$2,$3,$4,$5,$6,$7)`,
 			r.TenantID, r.AgentID, r.Type, r.Source, r.Severity, r.TS, r.Payload,
 		)
 	}

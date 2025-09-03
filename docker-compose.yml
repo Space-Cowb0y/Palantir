@@ -1,4 +1,3 @@
-version: "3.9"
 services:
   postgres:
     image: postgres:16
@@ -31,7 +30,9 @@ services:
     ports: ["8080:8080"]
 
   api-agent:
-    build: ./services/api-agent
+    build:
+      context: ./services/api-agent
+      dockerfile: Dockerfile
     environment:
       DATABASE_URL: ${DATABASE_URL}
       OIDC_ISSUER: ${OIDC_ISSUER}
@@ -39,7 +40,9 @@ services:
     depends_on: [postgres, keycloak]
 
   api-admin:
-    build: ./services/api-admin
+    build:
+      context: ./services/api-admin
+      dockerfile: Dockerfile
     environment:
       DATABASE_URL: ${DATABASE_URL}
       OIDC_ISSUER: ${OIDC_ISSUER}
@@ -49,13 +52,14 @@ services:
     depends_on: [postgres, keycloak]
 
   web:
-    build: ./web
-    environment:
-      NEXT_PUBLIC_ADMIN_API_BASE: http://localhost:8081
-      NEXT_PUBLIC_OIDC_ISSUER: ${OIDC_ISSUER}
-      NEXT_PUBLIC_OIDC_CLIENT_ID: admin-ui
-    ports: ["3000:3000"]
-    depends_on: [api-admin]
+    image: node:20
+    working_dir: /app
+    volumes:
+      - ./web:/app
+    command: sh -c "npm install && npm run dev"
+    ports:
+      - "3000:3000"
+
 
 volumes:
   pgdata:

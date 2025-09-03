@@ -7,7 +7,7 @@ import (
 
 	"github.com/go-chi/chi/v5"
 
-	"palantir/services/api-agent/internal/store"
+	"Palantir/services/api-agent/internal/store"
 )
 
 type Event struct {
