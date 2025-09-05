@@ -1,8 +1,14 @@
-# .dockerignore
-**/bin/
-**/build/
-**/dist/
-**/node_modules/
+# .dockerignore (por serviço)
+.git
+.gitignore
 **/.git
-**/.gitignore
-**/.env
+**/.cache
+**/bin
+**/build
+**/dist
+**/out
+**/node_modules
+**/*.log
+**/*.tmp
+.env
+.DS_Store
