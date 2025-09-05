@@ -11,20 +11,22 @@ type Store struct{ Pool *pgxpool.Pool }
 
 func Open(dsn string) (*Store, error) {
 	p, err := pgxpool.New(context.Background(), dsn)
-	if err != nil { return nil, err }
+	if err != nil {
+		return nil, err
+	}
 	return &Store{Pool: p}, nil
 }
-func (s *Store) Close(){ s.Pool.Close() }
+func (s *Store) Close() { s.Pool.Close() }
 
 type Event struct {
-	ID       int64                  `json:"id"`
-	TenantID *string                `json:"tenant_id,omitempty"`
-	AgentID  *string                `json:"agent_id,omitempty"`
-	Type     string                 `json:"type"`
-	Source   string                 `json:"source"`
-	Severity *string                `json:"severity,omitempty"`
-	TS       time.Time              `json:"ts"`
-	Payload  map[string]any         `json:"payload"`
+	ID       int64          `json:"id"`
+	TenantID *string        `json:"tenant_id,omitempty"`
+	AgentID  *string        `json:"agent_id,omitempty"`
+	Type     string         `json:"type"`
+	Source   string         `json:"source"`
+	Severity *string        `json:"severity,omitempty"`
+	TS       time.Time      `json:"ts"`
+	Payload  map[string]any `json:"payload"`
 }
 
 type EventFilter struct {
@@ -36,18 +38,35 @@ type EventFilter struct {
 func (s *Store) QueryEvents(ctx context.Context, f EventFilter) ([]Event, int64, error) {
 	args := []any{}
 	where := "WHERE 1=1"
-	if f.Type != ""    { where += " AND type=$"+itoa(len(args)+1); args = append(args, f.Type) }
-	if f.Source != ""  { where += " AND source=$"+itoa(len(args)+1); args = append(args, f.Source) }
-	if f.Severity != ""{ where += " AND severity=$"+itoa(len(args)+1); args = append(args, f.Severity) }
-	if f.From != nil   { where += " AND ts >= $"+itoa(len(args)+1); args = append(args, *f.From) }
-	if f.To != nil     { where += " AND ts <  $"+itoa(len(args)+1); args = append(args, *f.To) }
+	if f.Type != "" {
+		where += " AND type=$" + itoa(len(args)+1)
+		args = append(args, f.Type)
+	}
+	if f.Source != "" {
+		where += " AND source=$" + itoa(len(args)+1)
+		args = append(args, f.Source)
+	}
+	if f.Severity != "" {
+		where += " AND severity=$" + itoa(len(args)+1)
+		args = append(args, f.Severity)
+	}
+	if f.From != nil {
+		where += " AND ts >= $" + itoa(len(args)+1)
+		args = append(args, *f.From)
+	}
+	if f.To != nil {
+		where += " AND ts <  $" + itoa(len(args)+1)
+		args = append(args, *f.To)
+	}
 
 	rows, err := s.Pool.Query(ctx,
 		"SELECT id, tenant_id::text, agent_id::text, type, source, severity, ts, payload FROM events "+where+
 			" ORDER BY ts DESC LIMIT $"+itoa(len(args)+1)+" OFFSET $"+itoa(len(args)+2),
 		append(args, f.Limit, f.Offset)...,
 	)
-	if err != nil { return nil, 0, err }
+	if err != nil {
+		return nil, 0, err
+	}
 	defer rows.Close()
 
 	var out []Event
@@ -67,5 +86,5 @@ func (s *Store) QueryEvents(ctx context.Context, f EventFilter) ([]Event, int64,
 	return out, total, nil
 }
 
-func itoa(i int) string { return fmtInt(i) }
-func fmtInt(i int) string { return string('0'+i) } // simples, evita importar strconv
+func itoa(i int) string   { return fmtInt(i) }
+func fmtInt(i int) string { return string('0' + i) } // simples, evita importar strconv

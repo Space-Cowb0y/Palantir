@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
+import React from 'react';
 
 type Event = {
   id: number;
@@ -23,7 +24,7 @@ export default function EventsPage() {
   async function fetchPage(p = 0) {
     setLoading(true); setError(null);
     try {
-      const res = await fetch(`${base}/v1/admin/events?limit=25&offset=${p*25}`);
+      const res = await fetch(`${base}/v1/admin/events?type=&source=&severity=&from=&to=&limit=&offset=${p*25}`);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
       setItems(data.items || []);
@@ -37,6 +38,7 @@ export default function EventsPage() {
   useEffect(() => { fetchPage(page); }, [page]);
 
   return (
+    console.log('BASE', base),
     <main className="p-6">
       <h1 className="text-2xl font-bold mb-4">Eventos</h1>
       {loading && <div>Carregando…</div>}
@@ -76,3 +78,5 @@ export default function EventsPage() {
     </main>
   );
 }
+
+// web/src/app/events/page.tsx

@@ -1,0 +1,20 @@
+{
+  "events": [
+    {
+      "ts": "2025-09-02T12:00:00Z",
+      "type": "network.connection",
+      "source": "port_scanner",
+      "severity": "low",
+      "agent_id": "e7af43ec-65a2-4417-b611-2a36fa45bc1b",
+      "payload": { "dst_ip": "1.1.1.1", "dst_port": 443 }
+    },
+    {
+      "ts": "2025-09-02T12:00:01Z",
+      "type": "file.change",
+      "source": "file_integrity",
+      "severity": "medium",
+      "agent_id": "fb14e9f2-2d98-4ac4-894a-05f8d5b376d7",
+      "payload": { "path": "/etc/hosts", "change": "modified" }
+    }
+  ]
+}

@@ -17,5 +17,5 @@ func main(){
 	port := os.Getenv("ADMIN_API_PORT")
 	if port == "" { port = "8081" }
 	log.Printf("Palantir Admin API :%s", port)
-	log.Fatal(http.ListenAndServe(":"+port, httpserver.Router(db.Pool)))
+	log.Fatal(http.ListenAndServe(":"+port, httpserver.Router(db)))
 }

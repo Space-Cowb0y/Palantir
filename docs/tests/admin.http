@@ -1,0 +1,9 @@
+### Health
+GET http://localhost:8081/healthz
+
+### Listar eventos
+GET http://localhost:8081/v1/admin/events?limit=25&offset=0
+
+### SSE (abra no Insomnia/VSCode REST Client)
+GET http://localhost:8081/v1/admin/events/stream
+Accept: text/event-stream

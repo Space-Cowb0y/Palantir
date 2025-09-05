@@ -52,3 +52,7 @@ Thumbs.db
 *.pid
 *.seed
 docker-data/
+
+node_modules
+.next
+.env
