@@ -56,4 +56,3 @@ docker-data/
 node_modules
 .next
 .env
-web.zip
