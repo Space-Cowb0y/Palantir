@@ -1,5 +1,3 @@
 package main
-
-import "github.com/youruser/sentinel/cmd"
-
-func main() { cmd.RunCLI() }
+import "github.com/Space-Cowb0y/Palantir/sentinel/cmd"
+func main(){ cmd.Execute() }

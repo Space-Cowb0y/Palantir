@@ -1,19 +1,14 @@
-module github.com/Space-Cowb0y/Palantir
+module github.com/Space-Cowb0y/Palantir/sentinel
 
-go 1.22
-
+go 1.25.1
 
 require (
-    fyne.io/fyne/v2 v2.6.1
-    google.golang.org/grpc v1.66.2
-    google.golang.org/protobuf v1.34.2
-    github.com/charmbracelet/bubbletea v0.26.4
-    github.com/charmbracelet/lipgloss v0.10.0
-    fyne.io/fyne/v2 v2.5.3
-    github.com/gin-gonic/gin v1.10.0
-    github.com/prometheus/client_golang v1.18.0
-    github.com/spf13/viper v1.18.2
-    go.uber.org/zap v1.27.0
-    google.golang.org/grpc v1.66.2
-    google.golang.org/protobuf v1.34.2
+    github.com/charmbracelet/bubbletea @latest
+    github.com/charmbracelet/bubbles @latest
+    github.com/charmbracelet/lipglos s@latest
+    github.com/Evertras/bubble-table @latest 
+    github.com/spf13/cobra @latest 
+    github.com/spf13/viper @latest 
+    google.golang.org/grpc @latest 
+    google.golang.org/protobuf @latest 
 )
