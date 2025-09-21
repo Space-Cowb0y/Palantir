@@ -1,1 +1,6 @@
-{"name":"greeter","exec":"go","args":["run","./plugins/greeter/main.go"],"proto":"grpc"}
+{
+    "name":"greeter",
+    "exec":"go",
+    "args":["run","./plugins/greeter/main.go"],
+    "proto":"grpc"
+}

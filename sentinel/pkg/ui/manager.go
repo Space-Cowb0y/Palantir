@@ -14,9 +14,34 @@ type EyeRow struct {
 	Name, Addr, Status, PID, Uptime string
 }
 
+var eyesState = map[string]time.Time{} // chave = PID ou Addr
+
 func QueryEyesOverHTTP(addr string) []EyeRow {
-	_, _ = http.Get("http://" + addr + "/api/eyes") // TODO: parse JSON
-	return []EyeRow{{Name: "greeter", Addr: "127.0.0.1:50060", Status: "running", PID: "1234", Uptime: "5s"}}
+	resp, err := http.Get("http://" + addr + "/api/eyes")
+	if err != nil {
+		// em produção, faça tratamento de erro
+		return nil
+	}
+	defer resp.Body.Close()
+
+	// TODO: parse JSON real, por enquanto vamos simular
+	pid := "1234"
+	name := "greeter"
+
+	// se nunca vimos esse PID antes, salva StartTime
+	if _, ok := eyesState[pid]; !ok {
+		eyesState[pid] = time.Now()
+	}
+
+	uptime := time.Since(eyesState[pid]).Truncate(time.Second)
+
+	return []EyeRow{{
+		Name:   name,
+		Addr:   addr,
+		Status: "running",
+		PID:    pid,
+		Uptime: uptime.String(),
+	}}
 }
 
 type model struct {
@@ -108,7 +133,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			}
 		}
 		// agenda próximo tick
-		return m, tea.Tick(time.Second, func(time.Time) tea.Msg { return tickMsg(time.Now()) })
+		return m, tea.Tick(30*time.Second, func(time.Time) tea.Msg { return tickMsg(time.Now()) })
 
 	default:
 		return m, nil
