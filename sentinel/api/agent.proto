@@ -1,0 +1,13 @@
+syntax = "proto3";
+package agent;
+
+service AgentService {
+  rpc Ping    (PingRequest) returns (PingResponse);
+  rpc RunTask (TaskRequest) returns (TaskResponse);
+}
+
+message PingRequest { string message = 1; }
+message PingResponse { string reply = 1; }
+
+message TaskRequest { string task = 1; repeated string args = 2; }
+message TaskResponse { string result = 1; bool success = 2; }
