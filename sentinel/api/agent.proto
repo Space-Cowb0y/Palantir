@@ -1,9 +1,24 @@
 syntax = "proto3";
 package sentinel.v1;
 option go_package = "github.com/Space-Cowb0y/Palantir/sentinel/api/gen/sentinel/v1;sentinelv1";
+
 message Empty {}
-message EyeInfo { string name=1; string version=2; string address=3; repeated string capabilities=4; }
-message HeartbeatReq { string name=1; string status=2; }
-message HeartbeatResp { string ack=1; }
-service Sentinel { rpc Register(EyeInfo) returns (Empty); rpc Heartbeat(HeartbeatReq) returns (HeartbeatResp); }
-service Eye { rpc Ping(Empty) returns (Empty); }
+
+message EyeInfo {
+  string name = 1;
+  string version = 2;
+  string address = 3; // where eye serves grpc (if it also accepts callbacks)
+  repeated string capabilities = 4;
+}
+
+message HeartbeatReq { string name = 1; string status = 2; }
+message HeartbeatResp { string ack = 1; }
+
+service Sentinel {
+  rpc Register(EyeInfo) returns (Empty);
+  rpc Heartbeat(HeartbeatReq) returns (HeartbeatResp);
+}
+
+service Eye { // optional callbacks from Sentinel to Eye
+  rpc Ping(Empty) returns (Empty);
+}
