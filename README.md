@@ -52,15 +52,33 @@ A comunicação entre os módulos é feita via **gRPC**, permitindo fácil integ
 
 ## 📂 Estrutura de Pastas
 
-/projeto
-│── /cmd # Entrypoints da aplicação
-│── /internal # Lógica de negócio
-│── /plugins # Plugins em Go
-│── /agents # Agentes em Rust e C/C++
-│── /proto # Definições gRPC (.proto)
-│── /ui # Interface gráfica (Fyne)
-│── /web # Interface web + APIs
-│── /docs # Documentação
+sentinel/
+  ├─ api/
+  │   └─ agent.proto
+  ├─ cmd/
+  │   ├─ cli.go
+  │   └─ gui.go
+  ├─ internal/
+  │   ├─ config/
+  │   │   └─ config.go
+  │   ├─ logging/
+  │   │   └─ logger.go
+  │   └─ plugin/
+  │       └─ loader.go
+  ├─ pkg/
+  │   ├─ ui/
+  │   │   └─ manager.go
+  │   └─ web/
+  │       ├─ monitor.go
+  │       └─ server.go
+  ├─ plugins/
+  │   └─ greeter/
+  │       └─ main.go
+  ├─ webui/
+  │   └─ index.html
+  ├─ main.go
+  ├─ go.mod
+  └─ README.md
 
 
 WIP
